@@ -1,6 +1,7 @@
 package com.booleanuk.core.Person;
 
 import com.booleanuk.core.Basket;
+import com.booleanuk.core.Inventory;
 import com.booleanuk.core.Items.Item;
 
 public class Manager extends Member{
@@ -19,7 +20,7 @@ public class Manager extends Member{
         return false;
     }
 
-    public boolean addItemToStore(Item item){
+    public boolean addItemToStore(Item item, Integer quantity){
 
         return false;
     }

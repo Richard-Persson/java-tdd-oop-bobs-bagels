@@ -21,11 +21,11 @@ public class Member {
     }
 
     public boolean addToBasket(Item i) {
-        return false;
+        return true;
     }
 
     public boolean removeFromBasket(Item i) {
-        return false;
+        return true;
     }
 
     public boolean isBasketFull() {

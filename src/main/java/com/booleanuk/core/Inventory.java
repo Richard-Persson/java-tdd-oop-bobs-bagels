@@ -2,14 +2,15 @@ package com.booleanuk.core;
 
 import com.booleanuk.core.Items.Item;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Inventory {
 
 
-    private List<Item> items;
+    private HashMap<Item, Integer> items;
 
-    public Inventory(List<Item> items){
+    public Inventory(HashMap<Item,Integer> items){
 
         this.items = items;
     }
@@ -24,6 +25,11 @@ public class Inventory {
     public Item getSpecificItem(String ID){
 
         return null;
+    }
+
+    public int getQuantity(Item i){
+
+        return 0;
     }
 
 

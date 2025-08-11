@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Basket {
 
-    private int capacity = 4;
+    private int capacity;
 
     private Inventory storeInventory;
 
@@ -50,7 +50,7 @@ public class Basket {
         return 1;
     }
 
-    public double costOfBagel(String ID){
+    public double costOfBagel(Item i){
 
         return 1;
     }

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static com.booleanuk.core.Items.BagelVariants.*;
@@ -37,7 +38,11 @@ public class CoreTest {
         filling = new Filling(1.0,CREAM_CHEESE);
         coffee = new Coffee(3,BLACK);
         basketWithValidItems = new Basket(List.of(bagel,filling,coffee));
-        inventory = new Inventory(List.of(bagel,filling,coffee));
+        HashMap<Item,Integer> standardItems = new HashMap<>();
+        standardItems.put(bagel,1);
+        standardItems.put(filling,1);
+        standardItems.put(coffee,1);
+        inventory = new Inventory(standardItems);
     }
 
 
@@ -51,19 +56,31 @@ public class CoreTest {
     }
 
     @Test
-    void removeFromBasket(){
+    void addIllegalItem(){
 
+        Item illegalBagel = new Bagel();
+        Assertions.assertFalse(member.addToBasket(illegalBagel));
+    }
+
+    @Test
+    void removeFromBasket(){
         member.setBasket(basketWithValidItems);
         member.removeFromBasket(bagel);
         Assertions.assertNotEquals(basketWithValidItems,member.getBasket());
 
     }
 
+    @Test
+    void removeNonExistingFromBasket(){
+
+        Item illegalBagel = new Bagel();
+        Assertions.assertFalse(member.removeFromBasket(illegalBagel));
+
+    }
 
 
     @Test
     void basketIsFull(){
-
         Basket b = new Basket();
 
         b.setCapacity(1);
@@ -73,9 +90,21 @@ public class CoreTest {
         Assertions.assertTrue(member.isBasketFull());
     }
 
+    @Test
+    void basketIsNotFull(){
+        Basket b = new Basket();
+
+        b.setCapacity(2);
+        member.setBasket(b);
+        member.addToBasket(bagel);
+
+        Assertions.assertFalse(member.isBasketFull());
+    }
+
 
     @Test
     void getTotalCostOfBasket(){
+
 
         customer.setBasket(basketWithValidItems);
         Assertions.assertEquals(6, customer.getTotalCost());
@@ -120,12 +149,10 @@ public class CoreTest {
     void addItemToStore(){
 
         Item bagelEverything = new Bagel(0.49,EVERYTHING);
-        Item bagelEverything2 = new Bagel(0.49,EVERYTHING);
 
-        manager.addItemToStore(bagelEverything);
+        manager.addItemToStore(bagelEverything,1);
 
         Assertions.assertEquals(bagelEverything,inventory.getSpecificItem("BGLE"));
-        Assertions.assertFalse(manager.addItemToStore(bagelEverything2));
     }
 
 
@@ -142,6 +169,14 @@ public class CoreTest {
 
         Assertions.assertTrue(inventory.getSpecificItem("COFB") == coffee);
         Assertions.assertNull(inventory.getSpecificItem("FILB"));
+    }
+
+    @Test
+    void quantity(){
+
+        Assertions.assertEquals(1,inventory.getQuantity(bagel));
+        Assertions.assertNotEquals(10,inventory.getQuantity(coffee));
+
     }
 
 }

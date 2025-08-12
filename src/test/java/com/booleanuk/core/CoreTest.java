@@ -8,9 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import static com.booleanuk.core.Items.BagelVariants.*;
 import static com.booleanuk.core.Items.FillingVariants.*;
@@ -20,9 +18,9 @@ public class CoreTest {
 
     private Inventory inventory;
     private Basket basketWithValidItems;
-    private Item bagel = new Bagel(2.0, ONION);
-    private Item filling = new Filling(1.0,CREAM_CHEESE);
-    private Item coffee = new Coffee(3,BLACK);
+    private Item bagel = new Bagel(ONION);
+    private Item filling = new Filling(CREAM_CHEESE);
+    private Item coffee = new Coffee(BLACK);
     private Member member;
     private Customer customer;
     private Manager manager;
@@ -35,9 +33,9 @@ public class CoreTest {
          customer = new Customer();
          manager = new Manager();
 
-        bagel = new Bagel(2.0, ONION);
-        filling = new Filling(1.0,CREAM_CHEESE);
-        coffee = new Coffee(3,BLACK);
+        bagel = new Bagel(ONION);
+        filling = new Filling(CREAM_CHEESE);
+        coffee = new Coffee(BLACK);
         basketWithValidItems = new Basket();
         basketWithValidItems.add(filling);
         basketWithValidItems.add(bagel);
@@ -71,7 +69,7 @@ public class CoreTest {
     @Test
     void removeFromBasket(){
         member.setBasket(basketWithValidItems);
-        Item everythingBagel = new Bagel(2,EVERYTHING);
+        Item everythingBagel = new Bagel(EVERYTHING);
         boolean removedLegal = member.removeFromBasket(bagel);
         boolean removedIllegal = member.removeFromBasket(everythingBagel);
         Assertions.assertTrue(removedLegal);
@@ -116,16 +114,17 @@ public class CoreTest {
 
 
         customer.setBasket(basketWithValidItems);
-        Assertions.assertEquals(6, customer.getTotalCost());
+        Assertions.assertEquals(1.6, customer.getTotalCost());
     }
 
     @Test
     void getCostOfBagel(){
 
+
         double coffeePrice= customer.getCostOfBagel(coffee);
         double bagelPrice= customer.getCostOfBagel(bagel);
         Assertions.assertEquals(0,coffeePrice);
-        Assertions.assertEquals(2,bagelPrice);
+        Assertions.assertEquals(0.49,bagelPrice);
     }
 
 
@@ -156,7 +155,7 @@ public class CoreTest {
     @Test
     void addItemToStore(){
 
-        Item bagelEverything = new Bagel(0.49,EVERYTHING);
+        Item bagelEverything = new Bagel(EVERYTHING);
 
         manager.addItemToStore(inventory, bagelEverything,1);
 
@@ -166,7 +165,7 @@ public class CoreTest {
 
     @Test
     void getSumOfBasket(){
-        Assertions.assertEquals(6,basketWithValidItems.sum());
+        Assertions.assertEquals(1.6,basketWithValidItems.sum());
     }
 
 

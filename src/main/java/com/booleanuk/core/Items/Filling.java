@@ -5,12 +5,11 @@ import static com.booleanuk.core.Items.FillingVariants.*;
 public class Filling implements Item{
 
 
-    private double price;
+    private double price = 0.12;
     private String ID;
     private Enum<FillingVariants> variant;
 
-    public Filling(double price, Enum<FillingVariants> variant) {
-        this.price = price;
+    public Filling(Enum<FillingVariants> variant) {
         this.variant = variant;
         this.ID = setId(variant);
     }

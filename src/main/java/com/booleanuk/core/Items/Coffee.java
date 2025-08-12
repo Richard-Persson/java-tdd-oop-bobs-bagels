@@ -13,10 +13,10 @@ public class Coffee implements Item{
 
     }
 
-    public Coffee(double price, Enum<CoffeeVariants> variant) {
-        this.price = price;
+    public Coffee(Enum<CoffeeVariants> variant) {
         this.variant = variant;
         this.ID = setId(variant);
+        this.price = setPrice(variant);
     }
 
     @Override
@@ -32,6 +32,11 @@ public class Coffee implements Item{
     @Override
     public String getVariant() {
         return this.variant.name();
+    }
+    public double setPrice(Enum<CoffeeVariants>variant){
+
+        return variant.equals(BLACK) ? 0.99
+                : variant.equals(WHITE) ? 1.19 : 1.29;
     }
     private String setId(Enum<CoffeeVariants> coffeeVariant){
 

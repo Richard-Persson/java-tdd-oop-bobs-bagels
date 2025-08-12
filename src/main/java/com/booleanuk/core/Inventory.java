@@ -20,9 +20,9 @@ public class Inventory {
     private Set<Item> keys;
 
     public Inventory(){
-        Item bagel = new Bagel(2.0, ONION);
-        Item filling = new Filling(1.0,CREAM_CHEESE);
-        Item coffee = new Coffee(3,BLACK);
+        Item bagel = new Bagel( ONION);
+        Item filling = new Filling(CREAM_CHEESE);
+        Item coffee = new Coffee(BLACK);
         items.put(bagel,1);
         items.put(coffee,1);
         items.put(filling,1);

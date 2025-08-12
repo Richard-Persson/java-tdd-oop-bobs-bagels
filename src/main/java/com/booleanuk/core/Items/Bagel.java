@@ -16,9 +16,9 @@ public class Bagel implements Item{
 
     }
 
-    public Bagel(double price, Enum<BagelVariants> variant){
-        this.price = price;
+    public Bagel(Enum<BagelVariants> variant){
         this.variant = variant;
+        this.price = setPrice(variant);
         this.ID = setId(variant);
 
     }
@@ -33,6 +33,9 @@ public class Bagel implements Item{
 
     public double getPrice() {
         return this.price;
+    }
+    public double setPrice(Enum<BagelVariants> variant){
+        return variant.equals(PLAIN) ? 0.39 : 0.49;
     }
 
     public String getID() {

@@ -50,6 +50,9 @@ public class Basket {
     }
 
     public double sum(){
+
+
+
         double sum = 0;
         for (Item item : itemsInBasket) {
             sum+=item.getPrice();
@@ -72,7 +75,7 @@ public class Basket {
     }
 
     public boolean isFull() {
-        return this.itemsInBasket.size() == this.capacity;
+        return this.itemsInBasket.size() == capacity;
     }
 
     public Item getItem(Item i){
@@ -96,6 +99,10 @@ public class Basket {
 
 
 
+    public boolean hasDiscount(){
+
+        return false;
+    }
 
 
 }

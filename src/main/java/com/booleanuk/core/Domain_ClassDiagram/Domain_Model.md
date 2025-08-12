@@ -25,8 +25,15 @@
 |           |                                         | item is null              | false            |
 | Basket    | double sum()                            | basket has items          | total cost       |
 |           |                                         | basket is empty           | 0                |
+| Basket    | boolean add(Item i)                     | Item is valid             | true             |
+|           |                                         | item is null              | false            |
+| Basket    | boolean remove(Item i)                  | Item exists               | true             |
+|           |                                         | item dosen't exist        | false            |
 | Inventory | Item getSpecificItem(String ID)         | ID is valid               | Item             |
 |           |                                         | ID dosen't exist          | null             |
 |           |                                         | ID is null                | null             |
 | Inventory | int getQuantity(Item i)                 | we have many of that item | integer quantity |
 |           |                                         | we have 0                 | 0                |
+| Basket    | boolean hasDiscount()                   | enough items for discount | true             |
+|           |                                         | no items                  | false            |
+

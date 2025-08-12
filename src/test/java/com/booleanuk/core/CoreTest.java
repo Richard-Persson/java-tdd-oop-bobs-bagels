@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,7 +38,10 @@ public class CoreTest {
         bagel = new Bagel(2.0, ONION);
         filling = new Filling(1.0,CREAM_CHEESE);
         coffee = new Coffee(3,BLACK);
-        basketWithValidItems = new Basket(List.of(bagel,filling,coffee));
+        basketWithValidItems = new Basket();
+        basketWithValidItems.add(filling);
+        basketWithValidItems.add(bagel);
+        basketWithValidItems.add(coffee);
         HashMap<Item,Integer> standardItems = new HashMap<>();
         standardItems.put(bagel,1);
         standardItems.put(filling,1);
@@ -50,8 +54,10 @@ public class CoreTest {
     @Test
     void addToBasket(){
 
-        member.addToBasket(bagel);
-        Assertions.assertEquals(bagel,member.getBasket().getItemsInBasket().getFirst());
+        Member m = new Member();
+        m.addToBasket(bagel);
+        Item i = m.getBasket().getItemsInBasket().getFirst();
+        Assertions.assertEquals(bagel,i);
 
     }
 
@@ -65,8 +71,11 @@ public class CoreTest {
     @Test
     void removeFromBasket(){
         member.setBasket(basketWithValidItems);
-        member.removeFromBasket(bagel);
-        Assertions.assertNotEquals(basketWithValidItems,member.getBasket());
+        Item everythingBagel = new Bagel(2,EVERYTHING);
+        boolean removedLegal = member.removeFromBasket(bagel);
+        boolean removedIllegal = member.removeFromBasket(everythingBagel);
+        Assertions.assertTrue(removedLegal);
+        Assertions.assertFalse(removedIllegal);
 
     }
 
@@ -113,10 +122,10 @@ public class CoreTest {
     @Test
     void getCostOfBagel(){
 
-
-
-        Assertions.assertEquals(0,customer.getCostOfBagel(coffee));
-        Assertions.assertEquals(2, customer.getCostOfBagel(bagel));
+        double coffeePrice= customer.getCostOfBagel(coffee);
+        double bagelPrice= customer.getCostOfBagel(bagel);
+        Assertions.assertEquals(0,coffeePrice);
+        Assertions.assertEquals(2,bagelPrice);
     }
 
 
@@ -124,7 +133,8 @@ public class CoreTest {
     @Test
     void chooseFilling(){
 
-        Assertions.assertTrue(customer.chooseFilling(filling));
+        customer.setBasket(basketWithValidItems);
+        Assertions.assertTrue(customer.chooseFilling((Filling)filling));
 
     }
 
@@ -133,14 +143,12 @@ public class CoreTest {
     @Test
     void changeCapacity(){
 
-        Basket oldCapacity = new Basket();
-        manager.changeCapacity(8);
-        Basket newCapacity = new Basket();
+        manager.changeCapacity(10);
+        int newCapacity = new Basket().getCapacity();
 
 
 
-        Assertions.assertEquals(4,oldCapacity.getCapacity());
-        Assertions.assertEquals(8,newCapacity.getCapacity());
+        Assertions.assertEquals(10,newCapacity);
         Assertions.assertFalse(manager.changeCapacity(-1));
     }
 
@@ -150,7 +158,7 @@ public class CoreTest {
 
         Item bagelEverything = new Bagel(0.49,EVERYTHING);
 
-        manager.addItemToStore(bagelEverything,1);
+        manager.addItemToStore(inventory, bagelEverything,1);
 
         Assertions.assertEquals(bagelEverything,inventory.getSpecificItem("BGLE"));
     }
@@ -158,9 +166,7 @@ public class CoreTest {
 
     @Test
     void getSumOfBasket(){
-
         Assertions.assertEquals(6,basketWithValidItems.sum());
-
     }
 
 

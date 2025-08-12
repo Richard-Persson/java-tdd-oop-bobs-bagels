@@ -7,7 +7,8 @@ import com.booleanuk.core.Items.Item;
 public class Manager extends Member{
 
 
-    private Basket basket;
+    private Basket basket = new Basket();
+    private Inventory inventory = new Inventory();
 
 
     public Manager(){
@@ -16,13 +17,12 @@ public class Manager extends Member{
 
 
     public boolean changeCapacity(int newCapacity){
-
-        return false;
+        return basket.setCapacity(newCapacity);
     }
 
-    public boolean addItemToStore(Item item, Integer quantity){
+    public boolean addItemToStore(Inventory inventory,Item item, Integer quantity){
+        return inventory.add(item,quantity);
 
-        return false;
     }
 
 

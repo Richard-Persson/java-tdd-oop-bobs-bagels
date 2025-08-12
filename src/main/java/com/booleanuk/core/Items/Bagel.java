@@ -2,13 +2,15 @@ package com.booleanuk.core.Items;
 
 import java.util.List;
 
+import static com.booleanuk.core.Items.BagelVariants.*;
+
 public class Bagel implements Item{
 
-    private List<Filling> fillings;
 
     private double price;
     private String ID;
     private Enum<BagelVariants> variant;
+    private Filling filling;
 
     public Bagel(){
 
@@ -17,22 +19,34 @@ public class Bagel implements Item{
     public Bagel(double price, Enum<BagelVariants> variant){
         this.price = price;
         this.variant = variant;
+        this.ID = setId(variant);
 
     }
 
+    public Filling getFilling() {
+        return filling;
+    }
 
-    @Override
+    public void setFilling(Filling filling) {
+        this.filling = filling;
+    }
+
     public double getPrice() {
-        return 0;
+        return this.price;
     }
 
-    @Override
     public String getID() {
-        return "";
+        return this.ID;
     }
 
-    @Override
     public String getVariant() {
-        return "";
+        return this.variant.name();
+    }
+
+    private String setId(Enum<BagelVariants> variant){
+
+        return          variant.equals(ONION)? "BGLO" :
+                        variant.equals(PLAIN)? "BGLP":
+                        variant.equals(EVERYTHING) ? "BGLE" : "BGLS";
     }
 }

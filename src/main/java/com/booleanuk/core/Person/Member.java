@@ -6,29 +6,35 @@ import com.booleanuk.core.Items.Item;
 public class Member {
 
 
-    private Basket basket;
+    private Basket basket = new Basket();
 
     public Member(){
-
     }
 
     public Basket getBasket() {
-        return null;
+        return this.basket;
     }
 
     public void setBasket(Basket basket) {
 
+        this.basket = basket;
     }
 
     public boolean addToBasket(Item i) {
-        return true;
+        printItemPrice(i);
+        return this.basket.add(i);
     }
 
     public boolean removeFromBasket(Item i) {
-        return true;
+        return this.basket.remove(i);
     }
 
     public boolean isBasketFull() {
-        return false;
+        return this.basket.isFull();
+    }
+
+    private void printItemPrice(Item i){
+
+        System.out.println(i.getPrice());
     }
 }
